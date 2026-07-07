@@ -626,20 +626,20 @@
     <!-- Tab 3: Short Story -->
     <div id="story-panel" class="panel">
       <div class="card">
-        <div class="item-header" style="margin-bottom: 1.5rem;">
-          <h2 class="card-title" style="margin-bottom: 0;">📚 მცირე სასწავლო ტექსტი</h2>
-          <div class="controls">
-            <button class="btn-circle" onclick="speak(document.getElementById('story-en-text').innerText)" title="მოუსმინე ტექსტს">🔊</button>
-            <button class="btn-circle btn-mic" onclick="startRecognition(this, document.getElementById('story-en-text').innerText)" title="წაიკითხე ხმამაღლა">🎙️</button>
-          </div>
-        </div>
-        <div class="status-text" id="story-status"></div>
-        
-        <div class="story-box">
-          <div class="story-english" id="story-en-text">My name is Daji, and I work with Danieli in a lovely seaside cafe. Danieli is a very calm and patient manager. He is never lazy and always stays organized. I think I am a responsible and polite worker, but sometimes I am a bit shy. Yesterday, an angry customer came in, but Danieli stayed calmer than anyone else. In the end, it was the best day of the week, and we felt like the happiest team!</div>
+        <h2 class="card-title">📚 მცირე სასწავლო ტექსტი</h2>
+        <div class="story-box" style="margin-top: 0;">
+          <div class="story-english">My name is Daji, and I work with Danieli in a lovely seaside cafe. Danieli is a very calm and patient manager. He is never lazy and always stays organized. I think I am a responsible and polite worker, but sometimes I am a bit shy. Yesterday, an angry customer came in, but Danieli stayed calmer than anyone else. In the end, it was the best day of the week, and we felt like the happiest team!</div>
           <hr style="border: 0; border-top: 1px solid var(--border); margin: 1.5rem 0;">
           <div class="story-georgian">ჩემი სახელია დაჯი, და მე ვმუშაობ დანიელისთან ერთად მშვენიერ ზღვისპირა კაფეში. დანიელი ძალიან მშვიდი და მომთმენი მენეჯერია. ის არასდროს არის ზარმაცი და ყოველთვის მოწესრიგებულია. ვფიქრობ, მე პასუხისმგებლიანი და თავაზიანი თანამშრომელი ვარ, მაგრამ ხანდახან ცოტა მორცხვი ვარ. გუშინ ერთი გაბრაზებული მომხმარებელი შემოვიდა, მაგრამ დანიელი ყველაზე მშვიდად დარჩა. საბოლოოდ, ეს იყო კვირის საუკეთესო დღე და ჩვენ თავი ყველაზე ბედნიერ გუნდად ვიგრძენით!</div>
         </div>
+      </div>
+
+      <div class="card">
+        <h2 class="card-title">🗣️ ივარჯიშეთ წინადადებების მიხედვით</h2>
+        <p style="color: var(--text-muted); margin-bottom: 1.5rem;">
+          გამოთქვით თითოეული წინადადება ინდივიდუალურად უკეთესი შედეგისთვის:
+        </p>
+        <div id="story-items-container"></div>
       </div>
     </div>
 
@@ -732,6 +732,35 @@
       `;
     });
 
+    // Populate Story Items
+    const storySentences = [
+      { eng: "My name is Daji, and I work with Danieli in a lovely seaside cafe.", geo: "ჩემი სახელია დაჯი, და მე ვმუშაობ დანიელისთან ერთად მშვენიერ ზღვისპირა კაფეში." },
+      { eng: "Danieli is a very calm and patient manager.", geo: "დანიელი ძალიან მშვიდი და მომთმენი მენეჯერია." },
+      { eng: "He is never lazy and always stays organized.", geo: "ის არასდროს არის ზარმაცი და ყოველთვის მოწესრიგებულია." },
+      { eng: "I think I am a responsible and polite worker, but sometimes I am a bit shy.", geo: "ვფიქრობ, მე პასუხისმგებლიანი და თავაზიანი თანამშრომელი ვარ, მაგრამ ხანდახან ცოტა მორცხვი ვარ." },
+      { eng: "Yesterday, an angry customer came in, but Danieli stayed calmer than anyone else.", geo: "გუშინ ერთი გაბრაზებული მომხმარებელი შემოვიდა, მაგრამ დანიელი ყველაზე მშვიდად დარჩა." },
+      { eng: "In the end, it was the best day of the week, and we felt like the happiest team!", geo: "საბოლოოდ, ეს იყო კვირის საუკეთესო დღე და ჩვენ თავი ყველაზე ბედნიერ გუნდად ვიგრძენით!" }
+    ];
+
+    const storyContainer = document.getElementById('story-items-container');
+    storySentences.forEach((item) => {
+      storyContainer.innerHTML += `
+        <div class="practice-item">
+          <div class="item-header">
+            <div>
+              <div class="english-sentence">${item.eng}</div>
+              <div class="georgian-sentence">${item.geo}</div>
+            </div>
+            <div class="controls">
+              <button class="btn-circle" onclick="speak('${item.eng.replace(/'/g, "\\'")}')" title="მოუსმინე">🔊</button>
+              <button class="btn-circle btn-mic" onclick="startRecognition(this, '${item.eng.replace(/'/g, "\\'")}')" title="თქვი ხმამაღლა">🎙️</button>
+            </div>
+          </div>
+          <div class="status-text"></div>
+        </div>
+      `;
+    });
+
     // Text to Speech
     function speak(text) {
       if ('speechSynthesis' in window) {
@@ -751,8 +780,8 @@
         return;
       }
       
-      const isStory = btn.closest('.card') && btn.closest('.card').querySelector('#story-status');
-      const statusDiv = isStory ? document.getElementById('story-status') : btn.closest('.practice-item').querySelector('.status-text');
+      const item = btn.closest('.practice-item');
+      const statusDiv = item.querySelector('.status-text');
       
       btn.classList.add('recording');
       statusDiv.style.display = 'block';
