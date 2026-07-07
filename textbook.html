@@ -484,9 +484,107 @@
         color: black !important;
       }
     }
+
+    /* Mobile Header & Hamburger Menu */
+    .mobile-header {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1.5rem;
+      z-index: 99;
+    }
+
+    .menu-toggle {
+      background: transparent;
+      border: none;
+      color: white;
+      font-size: 1.8rem;
+      cursor: pointer;
+    }
+
+    .mobile-brand-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: white;
+      border-left: 3px solid var(--accent);
+      padding-left: 0.5rem;
+    }
+
+    .sidebar-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+      backdrop-filter: blur(3px);
+      -webkit-backdrop-filter: blur(3px);
+    }
+
+    .sidebar-overlay.active {
+      display: block;
+    }
+
+    /* Mobile Responsive View */
+    @media (max-width: 768px) {
+      .mobile-header {
+        display: flex;
+      }
+
+      .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 1000;
+        width: 280px;
+        box-shadow: 10px 0 30px rgba(0, 0, 0, 0.5);
+        height: 100vh;
+      }
+
+      .sidebar.open {
+        transform: translateX(0);
+      }
+
+      .main-content {
+        margin-left: 0;
+        padding: 5.5rem 1.2rem 2rem 1.2rem;
+      }
+
+      .content-tabs {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .tab-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
+        flex-grow: 1;
+        text-align: center;
+      }
+    }
   </style>
 </head>
 <body>
+
+  <!-- Mobile Header -->
+  <div class="mobile-header">
+    <div class="mobile-brand-title">CS ENGLISH</div>
+    <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+  </div>
+
+  <!-- Sidebar Overlay -->
+  <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
 
   <!-- Sidebar Navigation -->
   <div class="sidebar">
@@ -495,16 +593,16 @@
       <div class="brand-subtitle">Interactive Textbook & Practice</div>
     </div>
     <ul class="nav-list">
-      <li class="nav-item active" onclick="selectChapter('prelude')">📖 Prelude</li>
-      <li class="nav-item" onclick="selectChapter('ch1')">1. The Remote Opportunity</li>
-      <li class="nav-item" onclick="selectChapter('ch2')">2. Scaffolding Grammar</li>
-      <li class="nav-item" onclick="selectChapter('ch3')">3. Stepping Up to Fluency</li>
-      <li class="nav-item" onclick="selectChapter('ch4')">4. Support Glossary</li>
-      <li class="nav-item" onclick="selectChapter('ch5')">5. Written Support</li>
-      <li class="nav-item" onclick="selectChapter('ch6')">6. Speaking on the Line</li>
-      <li class="nav-item" onclick="selectChapter('ch7')">7. Navigating the Interview</li>
-      <li class="nav-item" onclick="selectChapter('ch8')">8. Study Roadmap</li>
-      <li class="nav-item" onclick="selectChapter('sources')">📚 Sources & Credits</li>
+      <li class="nav-item active" onclick="selectChapter(this, 'prelude')">📖 Prelude</li>
+      <li class="nav-item" onclick="selectChapter(this, 'ch1')">1. The Remote Opportunity</li>
+      <li class="nav-item" onclick="selectChapter(this, 'ch2')">2. Scaffolding Grammar</li>
+      <li class="nav-item" onclick="selectChapter(this, 'ch3')">3. Stepping Up to Fluency</li>
+      <li class="nav-item" onclick="selectChapter(this, 'ch4')">4. Support Glossary</li>
+      <li class="nav-item" onclick="selectChapter(this, 'ch5')">5. Written Support</li>
+      <li class="nav-item" onclick="selectChapter(this, 'ch6')">6. Speaking on the Line</li>
+      <li class="nav-item" onclick="selectChapter(this, 'ch7')">7. Navigating the Interview</li>
+      <li class="nav-item" onclick="selectChapter(this, 'ch8')">8. Study Roadmap</li>
+      <li class="nav-item" onclick="selectChapter(this, 'sources')">📚 Sources & Credits</li>
     </ul>
   </div>
 
@@ -513,9 +611,9 @@
     
     <!-- Tabs Header -->
     <div class="content-tabs" id="tabs-header">
-      <button class="tab-btn active" onclick="switchTab('read')">📖 Read Lesson</button>
-      <button class="tab-btn" onclick="switchTab('practice')">🗣️ Speak & Listen</button>
-      <button class="tab-btn" onclick="switchTab('quiz')">🧠 Quiz Challenge</button>
+      <button class="tab-btn active" onclick="switchTab(this, 'read')">📖 Read Lesson</button>
+      <button class="tab-btn" onclick="switchTab(this, 'practice')">🗣️ Speak & Listen</button>
+      <button class="tab-btn" onclick="switchTab(this, 'quiz')">🧠 Quiz Challenge</button>
     </div>
 
     <!-- Dynamic Content Area -->
@@ -955,29 +1053,59 @@ Support Team</pre>
     let currentQuizIdx = 0;
     let quizScore = 0;
 
+    // Toggle mobile sidebar
+    function toggleSidebar() {
+      const sidebar = document.querySelector('.sidebar');
+      const overlay = document.getElementById('sidebar-overlay');
+      if (sidebar && overlay) {
+        sidebar.classList.toggle('open');
+        overlay.classList.toggle('active');
+      }
+    }
+
     // Switch Chapter
-    function selectChapter(chapterId) {
+    function selectChapter(btnElement, chapterId) {
       activeChapter = chapterId;
       currentQuizIdx = 0;
       quizScore = 0;
       
       document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
-      const activeItem = Array.from(document.querySelectorAll('.nav-item')).find(item => 
-        item.getAttribute('onclick').includes(`'${chapterId}'`)
-      );
-      if (activeItem) activeItem.classList.add('active');
+      
+      if (btnElement) {
+        btnElement.classList.add('active');
+      } else {
+        const activeItem = Array.from(document.querySelectorAll('.nav-item')).find(item => {
+          const onclickAttr = item.getAttribute('onclick');
+          return onclickAttr && onclickAttr.includes(`'${chapterId}'`);
+        });
+        if (activeItem) activeItem.classList.add('active');
+      }
+
+      // Close sidebar on mobile after selecting a chapter
+      const sidebar = document.querySelector('.sidebar');
+      const overlay = document.getElementById('sidebar-overlay');
+      if (sidebar && sidebar.classList.contains('open')) {
+        sidebar.classList.remove('open');
+        overlay.classList.remove('active');
+      }
 
       renderContent();
     }
 
     // Switch Tab
-    function switchTab(tabId) {
+    function switchTab(btnElement, tabId) {
       activeTab = tabId;
       document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-      const activeBtn = Array.from(document.querySelectorAll('.tab-btn')).find(btn => 
-        btn.getAttribute('onclick').includes(`'${tabId}'`)
-      );
-      if (activeBtn) activeBtn.classList.add('active');
+      
+      if (btnElement) {
+        btnElement.classList.add('active');
+      } else {
+        const activeBtn = Array.from(document.querySelectorAll('.tab-btn')).find(btn => {
+          const onclickAttr = btn.getAttribute('onclick');
+          return onclickAttr && onclickAttr.includes(`'${tabId}'`);
+        });
+        if (activeBtn) activeBtn.classList.add('active');
+      }
 
       renderContent();
     }
@@ -1144,7 +1272,7 @@ Support Team</pre>
     }
 
     // Initialize Page
-    selectChapter('prelude');
+    selectChapter(null, 'prelude');
   </script>
 </body>
 </html>
