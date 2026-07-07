@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CS English Mastery - Interactive Textbook</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-dark: #0f172a;
+      --bg-card: rgba(30, 41, 59, 0.7);
+      --primary: #6366f1;
+      --primary-hover: #4f46e5;
+      --accent: #f59e0b;
+      --success: #10b981;
+      --danger: #ef4444;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border: rgba(255, 255, 255, 0.08);
+      --sidebar-width: 320px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(245, 158, 11, 0.1) 0px, transparent 50%);
+      color: var(--text-main);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+    }
+
+    /* Sidebar Navigation */
+    .sidebar {
+      width: var(--sidebar-width);
+      background: rgba(15, 23, 42, 0.95);
+      border-right: 1px solid var(--border);
+      padding: 2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      position: fixed;
+      left: 0;
+      top: 0;
+      z-index: 10;
+      overflow-y: auto;
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 2.5rem;
+      border-left: 4px solid var(--accent);
+      padding-left: 1rem;
+    }
+
+    .brand-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      color: white;
+    }
+
+    .brand-subtitle {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 0.2rem;
+    }
+
+    .nav-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .nav-item {
+      padding: 0.8rem 1rem;
+      border-radius: 0.75rem;
+      cursor: pointer;
+      font-weight: 500;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .nav-item:hover, .nav-item.active {
+      background: rgba(255, 255, 255, 0.05);
+      color: white;
+    }
+
+    .nav-item.active {
+      border-left: 3px solid var(--primary);
+      background: rgba(99, 102, 241, 0.1);
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    /* Main Content Area */
+    .main-content {
+      margin-left: var(--sidebar-width);
+      flex-grow: 1;
+      padding: 3rem;
+      max-width: 1100px;
+      min-width: 0;
+    }
+
+    /* Tabs */
+    .content-tabs {
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1rem;
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      padding: 0.6rem 1.4rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.2s ease;
+    }
+
+    .tab-btn:hover {
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .tab-btn.active {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+    }
+
+    /* Card Panels */
+    .panel {
+      display: none;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .panel.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Content Styling */
+    h1, h2, h3, h4 {
+      font-family: 'Outfit', sans-serif;
+      color: white;
+      margin-bottom: 1.5rem;
+    }
+
+    p {
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+      font-size: 1.05rem;
+    }
+
+    ul, ol {
+      margin-left: 1.5rem;
+      margin-bottom: 1.5rem;
+      color: var(--text-muted);
+    }
+
+    li {
+      margin-bottom: 0.5rem;
+      line-height: 1.6;
+    }
+
+    .chapter-image {
+      width: 100%;
+      max-height: 380px;
+      object-fit: cover;
+      border-radius: 1rem;
+      margin-bottom: 2rem;
+      border: 1px solid var(--border);
+    }
+
+    /* Callouts */
+    .callout {
+      padding: 1.5rem;
+      border-radius: 1rem;
+      margin: 2rem 0;
+      border-left: 4px solid;
+    }
+
+    .callout-title {
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .callout-data {
+      background: rgba(59, 130, 246, 0.08);
+      border-color: #3b82f6;
+      color: #93c5fd;
+    }
+
+    .callout-speaking {
+      background: rgba(245, 158, 11, 0.08);
+      border-color: #f59e0b;
+      color: #fde047;
+    }
+
+    .callout-commentary {
+      background: rgba(148, 163, 184, 0.08);
+      border-color: #94a3b8;
+      color: #cbd5e1;
+    }
+
+    /* Tables */
+    .table-container {
+      overflow-x: auto;
+      margin: 2rem 0;
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      background: rgba(30, 41, 59, 0.3);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    th {
+      background: rgba(15, 23, 42, 0.6);
+      color: var(--text-muted);
+      font-weight: 600;
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    td {
+      padding: 1.2rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-main);
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    pre {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--primary);
+      padding: 1.5rem;
+      border-radius: 0.75rem;
+      font-family: monospace;
+      font-size: 0.95rem;
+      color: #e2e8f0;
+      overflow-x: auto;
+      margin: 2rem 0;
+    }
+
+    /* Practice Items */
+    .practice-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .practice-item {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      padding: 1.2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      transition: all 0.2s ease;
+    }
+
+    .practice-item:hover {
+      border-color: rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .eng-sentence {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: white;
+    }
+
+    .geo-sentence {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .controls {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .btn-circle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.05);
+      color: white;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      font-size: 1.1rem;
+    }
+
+    .btn-circle:hover {
+      background: var(--primary);
+      border-color: var(--primary);
+      transform: scale(1.05);
+    }
+
+    .btn-mic:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .btn-mic.recording {
+      background: var(--danger);
+      border-color: var(--danger);
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+      100% { transform: scale(1); }
+    }
+
+    .status-alert {
+      font-size: 0.9rem;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      display: none;
+      margin-top: 0.5rem;
+    }
+
+    .status-success {
+      background: rgba(16, 185, 129, 0.1);
+      color: var(--success);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+    }
+
+    .status-error {
+      background: rgba(239, 68, 68, 0.1);
+      color: var(--danger);
+      border: 1px solid rgba(239, 68, 68, 0.2);
+    }
+
+    /* Quiz Styling */
+    .quiz-question {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: white;
+      margin-bottom: 1.5rem;
+    }
+
+    .quiz-options {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    @media(min-width: 600px) {
+      .quiz-options {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .option-btn {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      padding: 1.2rem;
+      border-radius: 1rem;
+      cursor: pointer;
+      text-align: left;
+      font-size: 1rem;
+      transition: all 0.2s ease;
+    }
+
+    .option-btn:hover {
+      background: rgba(255, 255, 255, 0.08);
+      transform: translateX(3px);
+    }
+
+    .option-btn.correct {
+      background: rgba(16, 185, 129, 0.15);
+      border-color: var(--success);
+      color: var(--success);
+      font-weight: 600;
+    }
+
+    .option-btn.incorrect {
+      background: rgba(239, 68, 68, 0.15);
+      border-color: var(--danger);
+      color: var(--danger);
+    }
+
+    .btn-next {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.8rem 1.8rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      font-weight: 600;
+      display: none;
+      align-self: flex-end;
+    }
+
+    .btn-next:hover {
+      background: var(--primary-hover);
+    }
+
+    /* PRINT LAYOUT */
+    @media print {
+      body {
+        background: white;
+        color: black;
+        display: block;
+      }
+      .sidebar, .content-tabs, .controls, .btn-next, .quiz-options, .quiz-question, .scoreboard {
+        display: none !important;
+      }
+      .main-content {
+        margin-left: 0 !important;
+        padding: 0 !important;
+      }
+      .panel {
+        display: block !important;
+      }
+      .panel:not(#read-panel) {
+        display: none !important;
+      }
+      h1, h2, h3, h4 {
+        color: black !important;
+      }
+      p, li, td {
+        color: #2D3748 !important;
+      }
+      .callout {
+        border-color: #4A5568 !important;
+        background: #F7FAFC !important;
+        color: black !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar Navigation -->
+  <div class="sidebar">
+    <div class="brand">
+      <div class="brand-title">CS ENGLISH</div>
+      <div class="brand-subtitle">Interactive Textbook & Practice</div>
+    </div>
+    <ul class="nav-list">
+      <li class="nav-item active" onclick="selectChapter('prelude')">📖 Prelude</li>
+      <li class="nav-item" onclick="selectChapter('ch1')">1. The Remote Opportunity</li>
+      <li class="nav-item" onclick="selectChapter('ch2')">2. Scaffolding Grammar</li>
+      <li class="nav-item" onclick="selectChapter('ch3')">3. Stepping Up to Fluency</li>
+      <li class="nav-item" onclick="selectChapter('ch4')">4. Support Glossary</li>
+      <li class="nav-item" onclick="selectChapter('ch5')">5. Written Support</li>
+      <li class="nav-item" onclick="selectChapter('ch6')">6. Speaking on the Line</li>
+      <li class="nav-item" onclick="selectChapter('ch7')">7. Navigating the Interview</li>
+      <li class="nav-item" onclick="selectChapter('ch8')">8. Study Roadmap</li>
+      <li class="nav-item" onclick="selectChapter('sources')">📚 Sources & Credits</li>
+    </ul>
+  </div>
+
+  <!-- Main Content Container -->
+  <div class="main-content">
+    
+    <!-- Tabs Header -->
+    <div class="content-tabs" id="tabs-header">
+      <button class="tab-btn active" onclick="switchTab('read')">📖 Read Lesson</button>
+      <button class="tab-btn" onclick="switchTab('practice')">🗣️ Speak & Listen</button>
+      <button class="tab-btn" onclick="switchTab('quiz')">🧠 Quiz Challenge</button>
+    </div>
+
+    <!-- Dynamic Content Area -->
+    <div id="content-area">
+      <!-- Content is dynamically populated by JS -->
+    </div>
+
+  </div>
+
+  <script>
+    // Chapter Data with text, speaking sentences, and quizzes
+    const textbookData = {
+      prelude: {
+        title: "Prelude",
+        readHtml: `
+          <h2>Prelude</h2>
+          <p>You are standing at the threshold of a massive global career shift. With hundreds of thousands of international companies now hiring remote customer support teams, the only barrier standing between you and a high-paying, flexible job is your ability to communicate confidently in English.</p>
+          <p>In this book, you will find a highly structured roadmap designed to take you from a basic A2 level to professional B2 fluency. The focus here is not academic grammar or dry vocabulary lists. Instead, this is an operational manual focused on helping you speak quickly, handle difficult customers, and pass competitive job interviews.</p>
+        `,
+        speaking: [
+          { eng: "The only barrier standing between you and a job is your ability to communicate.", geo: "ერთადერთი ბარიერი სამსახურის მიღებაში არის თქვენი კომუნიკაციის უნარი." },
+          { eng: "This is an operational manual focused on helping you speak quickly.", geo: "ეს არის პრაქტიკული სახელმძღვანელო, რომელიც ორიენტირებულია სწრაფად ამეტყველებაზე." }
+        ],
+        quiz: [
+          {
+            question: "What CEFR language level do most remote customer support companies look for?",
+            options: ["A1", "A2", "B1", "B2"],
+            correct: "B2"
+          }
+        ]
+      },
+      ch1: {
+        title: "Chapter 1: The Remote CS Opportunity & The Language Bar",
+        readHtml: `
+          <h2>The Remote CS Opportunity & The Language Bar</h2>
+          <img class="chapter-image" src="images/ch1.png" alt="Chapter 1 Illustration">
+          <p>The global remote workforce is expanding at an unprecedented rate, and customer support is the leading gateway. However, many qualified candidates fail at the very first step because they lack the specific type of English required to handle live tickets and phone calls.</p>
+          
+          <div class="callout callout-data">
+            <div class="callout-title">Key Data</div>
+            <p>"Each year, US employers fill around 341,700 customer service representative openings, and every one of those hires touches your brand directly." (Source 1)</p>
+          </div>
+
+          <p>To stand out in this massive hiring pool, you must understand that companies are not looking for perfect academic grammar. They are looking for functional fluency, which is set at the B2 level. At B2, you can explain complex problems, handle complaints without reading a script, and de-escalate tension using empathy.</p>
+          
+          <div class="callout callout-commentary">
+            <div class="callout-title">Personal Commentary</div>
+            <p>Speaking is a muscle; you cannot build it by reading silently. Practice saying sentences out loud daily.</p>
+          </div>
+        `,
+        speaking: [
+          { eng: "I am ready to handle customer inquiries directly.", geo: "მე მზად ვარ უშუალოდ ვუპასუხო მომხმარებლის კითხვებს." },
+          { eng: "Empathy is the most effective driver of customer satisfaction.", geo: "ემპათია არის მომხმარებლის კმაყოფილების ყველაზე ეფექტური მამოძრავებელი ძალა." }
+        ],
+        quiz: [
+          {
+            question: "How many customer service representative openings are filled in the US each year?",
+            options: ["Around 50,000", "Around 100,000", "Around 341,700", "Around 1,000,000"],
+            correct: "Around 341,700"
+          }
+        ]
+      },
+      ch2: {
+        title: "Chapter 2: Scaffolding Your Grammar (A2 to B1) & Adjectives",
+        readHtml: `
+          <h2>Scaffolding Your Grammar (A2 to B1) & Adjectives</h2>
+          <img class="chapter-image" src="images/ch2.png" alt="Chapter 2 Illustration">
+          <p>In customer support, basic grammar scaffolding means being able to state facts, ask clear questions, give instructions, and compare items clearly.</p>
+
+          <div class="callout callout-data">
+            <div class="callout-title">Comparative & Superlative - ზედსართავი სახელების შედარებითი და აღმატებითი ხარისხები</div>
+            <p><strong>Comparative (შედარებითი ხარისხი)</strong> გამოიყენება მაშინ როდესაც ვადარებთ ორ ადამიანს ან საგანს (taller, more beautiful). ხშირად გვჭირდება სიტყვა <strong>than</strong> (ვიდრე).</p>
+            <p><strong>Superlative (აღმატებითი ხარისხი)</strong> გამოიყენება მაშინ როდესაც ვადარებთ სამ ან მეტ ადამიანს ან საგანს (the tallest, the most beautiful). არ დაგავიწყდეთ არტიკლი <strong>the</strong>.</p>
+          </div>
+
+          <h3>1. მოკლე ზედსართავები (er / est)</h3>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Base Form</th>
+                  <th>Comparative (-er)</th>
+                  <th>Superlative (the + -est)</th>
+                  <th>მაგალითები</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>kind (კეთილი)</td>
+                  <td>kinder</td>
+                  <td>the kindest</td>
+                  <td>My mom is the kindest person in the world.</td>
+                </tr>
+                <tr>
+                  <td>calm (მშვიდი)</td>
+                  <td>calmer</td>
+                  <td>the calmest</td>
+                  <td>My boss is a very calm person and he never gets angry.</td>
+                </tr>
+                <tr>
+                  <td>shy (მორცხვი)</td>
+                  <td>shyer</td>
+                  <td>the shyest</td>
+                  <td>My son is shyer than my daughter.</td>
+                </tr>
+                <tr>
+                  <td>funny (სასაცილო)</td>
+                  <td>funnier</td>
+                  <td>the funniest</td>
+                  <td>She is the funniest person in our family.</td>
+                </tr>
+                <tr>
+                  <td>happy (ბედნიერი)</td>
+                  <td>happier</td>
+                  <td>the happiest</td>
+                  <td>She is happier in the morning.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>2. გრძელი ზედსართავები (more / the most)</h3>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Base Form</th>
+                  <th>Comparative (more)</th>
+                  <th>Superlative (the most)</th>
+                  <th>მაგალითები</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>friendly (მეგობრული)</td>
+                  <td>more friendly / friendlier</td>
+                  <td>the most friendly / friendliest</td>
+                  <td>The husband is friendlier than the wife.</td>
+                </tr>
+                <tr>
+                  <td>talkative (სიტყვაუხვი)</td>
+                  <td>more talkative</td>
+                  <td>the most talkative</td>
+                  <td>My sister is more talkative than I am.</td>
+                </tr>
+                <tr>
+                  <td>responsible (პასუხისმგებლიანი)</td>
+                  <td>more responsible</td>
+                  <td>the most responsible</td>
+                  <td>Ann is the most responsible worker in my job.</td>
+                </tr>
+                <tr>
+                  <td>creative (კრეატიული)</td>
+                  <td>more creative</td>
+                  <td>the most creative</td>
+                  <td>My sister is more creative than I am.</td>
+                </tr>
+                <tr>
+                  <td>polite (თავაზიანი)</td>
+                  <td>more polite</td>
+                  <td>the most polite</td>
+                  <td>I think it is very important to be polite.</td>
+                </tr>
+                <tr>
+                  <td>lazy (ზარმაცი)</td>
+                  <td>lazier</td>
+                  <td>the laziest</td>
+                  <td>My son is the laziest person I know.</td>
+                </tr>
+                <tr>
+                  <td>organized (მოწესრიგებული)</td>
+                  <td>more organized</td>
+                  <td>the most organized</td>
+                  <td>I am the most organized person in my family.</td>
+                </tr>
+                <tr>
+                  <td>patient (მომთმენი)</td>
+                  <td>more patient</td>
+                  <td>the most patient</td>
+                  <td>He is the most patient person I know.</td>
+                </tr>
+                <tr>
+                  <td>honest (გულწრფელი)</td>
+                  <td>more honest</td>
+                  <td>the most honest</td>
+                  <td>I think I am an honest person.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>3. არაწესიერი ზედსართავები (Irregular Adjectives)</h3>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Base Form</th>
+                  <th>Comparative</th>
+                  <th>Superlative</th>
+                  <th>მაგალითები</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>good (კარგი)</td>
+                  <td>better</td>
+                  <td>the best</td>
+                  <td>My new job is better than the previous one. / Batumi is the best.</td>
+                </tr>
+                <tr>
+                  <td>bad (ცუდი)</td>
+                  <td>worse</td>
+                  <td>the worst</td>
+                  <td>This is the worst restaurant in the city.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        `,
+        speaking: [
+          { eng: "This girl is very kind and nice.", geo: "ეს გოგო ძალიან კეთილი და საყვარელია." },
+          { eng: "My mom is the kindest person in the world.", geo: "დედაჩემი ყველაზე კეთილი ადამიანია მსოფლიოში." },
+          { eng: "Who is the kindest person you know?", geo: "ვინ არის ყველაზე კეთილი ადამიანი ვისაც იცნობ?" },
+          { eng: "My son is a very calm child.", geo: "ჩემი ვაჟი არის ძალიან მშვიდი ბავშვი." },
+          { eng: "The sea is very calm today.", geo: "ზღვა ძალიან მშვიდია დღეს." },
+          { eng: "Are you a calm person?", geo: "მშვიდი ადამიანი ხარ?" },
+          { eng: "My boss is a very calm person and he never gets angry.", geo: "ჩემი უფროსი ძალიან მშვიდი ადამიანია და ის არასდროს ბრაზდება." },
+          { eng: "My children are shy but my son is shyer than my daughter.", geo: "ჩემი შვილები მორცხვები არიან მაგრამ ჩემი ვაჟი უფრო მორცხვია ვიდრე ჩემი ქალიშვილი." },
+          { eng: "My sister is funnier than I am.", geo: "ჩემი და უფრო სასაცილოა ვიდრე მე." },
+          { eng: "She is the funniest person in our family.", geo: "ის ყველაზე სასაცილო ადამიანია ჩვენს ოჯახში." },
+          { eng: "They are very friendly people but the husband is friendlier than the wife.", geo: "ისინი ძალიან მეგობრული ადამიანები არიან, მაგრამ ქმარი უფრო მეგობრულია ვიდრე ცოლი." },
+          { eng: "My sister is more talkative than I am.", geo: "ჩემი და უფრო ლაპარაკის მოყვარულია ვიდრე მე." },
+          { eng: "My aunt is the most talkative person in our family.", geo: "დეიდაჩემი არის ყველაზე სიტყვაუხვი ადამიანი ჩვენს ოჯახში." },
+          { eng: "Ann is more responsible than Marry in my job.", geo: "ანა უფრო პასუხისმგებლიანია ვიდრე მერი ჩემს სამსახურში." },
+          { eng: "Ann is the most responsible worker in my job.", geo: "ანა არის ყველაზე პასუხისმგებლიანი თანამშრომელი ჩემს სამსახურში." },
+          { eng: "My sister is more creative than I am.", geo: "ჩემი და უფრო კრეატიულია ვიდრე მე." },
+          { eng: "I think it is very important to be polite.", geo: "მე ვფიქრობ ძალიან მნიშვნელოვანია, რომ იყო თავაზიანი." },
+          { eng: "My son is the laziest person I know.", geo: "ჩემი ვაჟი არის ყველაზე ზარმაცი ადამიანი ვისაც ვიცნობ." },
+          { eng: "I am the most organized person in my family.", geo: "მე ვფიქრობ მე ვარ ყველაზე მოწესრიგებული ადამიანი ჩემს ოჯახში." },
+          { eng: "George is the most patient person I know.", geo: "გიორგი არის ყველაზე მომთმენი ადამიანი ვისაც ვიცნობ." },
+          { eng: "I think I am an honest person.", geo: "მე ვფიქრობ მე ვარ გულწრფელი ადამიანი." },
+          { eng: "My new job is better than the previous one.", geo: "ჩემი ახალი სამსახური უკეთესია წინაზე." },
+          { eng: "Batumi is the best seaside resort in Georgia.", geo: "ბათუმი არის საუკეთესო ზღვისპირა კურორტი საქართველოში." },
+          { eng: "Tsikhisdziri is better than Batumi.", geo: "ციხისძირი უკეთესია ვიდრე ბათუმი." },
+          { eng: "This restaurant is worse than the one which is near our house.", geo: "ეს რესტორანი უფრო ცუდია ვიდრე ის, რომელიც ჩვენს სახლთან ახლოსაა." },
+          { eng: "This is the worst restaurant in the city.", geo: "ეს ყველაზე ცუდი რესტორანია ქალაქში." }
+        ],
+        quiz: [
+          {
+            question: "My mom is the _______ person in the world. (kind)",
+            options: ["kind", "kinder", "kindest", "more kind"],
+            correct: "kindest"
+          },
+          {
+            question: "My son is _______ than my daughter. (shy)",
+            options: ["shyer", "shyest", "more shy", "the shyer"],
+            correct: "shyer"
+          },
+          {
+            question: "She is the _______ person in our family. (funny)",
+            options: ["funnyer", "funniest", "more funny", "funnier"],
+            correct: "funniest"
+          },
+          {
+            question: "Ann is the _______ responsible worker in my job.",
+            options: ["more", "most", "than", "the most"],
+            correct: "most"
+          },
+          {
+            question: "My new job is _______ than the previous one. (good)",
+            options: ["gooder", "better", "best", "the best"],
+            correct: "better"
+          },
+          {
+            question: "This is the _______ restaurant in the city. (bad)",
+            options: ["worse", "worst", "badest", "the worst"],
+            correct: "worst"
+          }
+        ]
+      },
+      ch3: {
+        title: "Chapter 3: Stepping Up to Fluency (B1 to B2)",
+        readHtml: `
+          <h2>Stepping Up to Fluency (B1 to B2)</h2>
+          <img class="chapter-image" src="images/ch3.png" alt="Chapter 3 Illustration">
+          <p>To reach the B2 level, your English must become diplomatic and precise. You must learn to use the Passive Voice and Conditionals to defuse angry customers.</p>
+          
+          <div class="callout callout-data">
+            <div class="callout-title">Diplomacy with Passive Voice</div>
+            <p>Instead of saying "You did not pay the invoice," say "The payment has not been received yet." This avoids blaming the customer.</p>
+          </div>
+        `,
+        speaking: [
+          { eng: "The payment has not been received yet.", geo: "გადახდა ჯერჯერობით არ მიგვიღია." },
+          { eng: "The password was entered incorrectly.", geo: "პაროლი არასწორად იქნა შეყვანილი." }
+        ],
+        quiz: [
+          {
+            question: "Instead of saying 'You broke the website', a diplomatic agent says:",
+            options: ["We are checking the server.", "The website is currently undergoing maintenance.", "You did something wrong.", "Our systems are down."],
+            correct: "The website is currently undergoing maintenance."
+          }
+        ]
+      },
+      ch4: {
+        title: "Chapter 4: The Support Glossary",
+        readHtml: `
+          <h2>The Support Glossary: 3,000-Word Blueprint</h2>
+          <img class="chapter-image" src="images/ch4.png" alt="Chapter 4 Illustration">
+          <p>A support agent's vocabulary needs Action Verbs, CX metrics, and Phrasal Verbs.</p>
+          <ul>
+            <li><strong>Escalate:</strong> Transfer to a specialist</li>
+            <li><strong>Resolve:</strong> Fix a problem</li>
+            <li><strong>Verify:</strong> Confirm details</li>
+          </ul>
+        `,
+        speaking: [
+          { eng: "Let us look into this together and get it sorted out.", geo: "მოდით, ერთად გადავხედოთ ამას და მოვაგვაროთ." },
+          { eng: "I am going to escalate this ticket to our billing team.", geo: "ამ ბილეთს გადავაგზავნი ჩვენს ფინანსურ გუნდთან." }
+        ],
+        quiz: [
+          {
+            question: "What does the phrasal verb 'Look into' mean in customer support?",
+            options: ["To delete", "To research or investigate", "To close", "To ignore"],
+            correct: "To research or investigate"
+          }
+        ]
+      },
+      ch5: {
+        title: "Chapter 5: Written Support: Email & Live Chat Architecture",
+        readHtml: `
+          <h2>Written Support: Email & Live Chat Architecture</h2>
+          <img class="chapter-image" src="images/ch5.png" alt="Chapter 5 Illustration">
+          <p>Written messages require a balance of speed and tone. Follow: Greeting, Empathy, Action Plan, and Closing.</p>
+          <pre>Hi [Customer Name],
+I apologize for the delay. We are shipping your order today.
+Best regards,
+Support Team</pre>
+        `,
+        speaking: [
+          { eng: "Thank you for bringing this to our attention.", geo: "გმადლობთ, რომ ეს საკითხი ჩვენს ყურადღებამდე მოიტანეთ." },
+          { eng: "I will monitor this shipment daily and update you.", geo: "ამ გზავნილს ყოველდღიურად დავაკვირდები და შეგატყობინებთ სიახლეებს." }
+        ],
+        quiz: [
+          {
+            question: "According to PwC research, how many customers walk away from a brand after one poor experience?",
+            options: ["1 in 10", "1 in 5", "1 in 3", "Almost none"],
+            correct: "1 in 3"
+          }
+        ]
+      },
+      ch6: {
+        title: "Chapter 6: Speaking on the Line",
+        readHtml: `
+          <h2>Speaking on the Line: De-escalation & Pronunciation</h2>
+          <img class="chapter-image" src="images/ch6.png" alt="Chapter 6 Illustration">
+          <p>Voice calls test your real-time skills. Use the **HEAT Model**: Hear, Empathize, Apologize, Take Action.</p>
+          <p><strong>Syllable Stress:</strong> Pronounce noun **RE**-fund vs. verb re-**FUND**.</p>
+        `,
+        speaking: [
+          { eng: "I understand this is affecting your business.", geo: "მესმის, რომ ეს გავლენას ახდენს თქვენს ბიზნესზე." },
+          { eng: "We will look at your API keys together to find out why this is happening.", geo: "ჩვენ ერთად გადავხედავთ თქვენს API გასაღებებს, რათა გავიგოთ, რატომ ხდება ეს." }
+        ],
+        quiz: [
+          {
+            question: "What does the H in the HEAT model stand for?",
+            options: ["Help", "Hear", "Hold", "Hurry"],
+            correct: "Hear"
+          }
+        ]
+      },
+      ch7: {
+        title: "Chapter 7: Navigating the Interview (STAR Blueprint)",
+        readHtml: `
+          <h2>Navigating the Interview (The STAR Blueprint)</h2>
+          <img class="chapter-image" src="images/ch7.png" alt="Chapter 7 Illustration">
+          <p>Hiring managers use behavioral questions. Answer using the STAR Method: Situation, Task, Action, Result.</p>
+        `,
+        speaking: [
+          { eng: "I actively listened to the customer's complaint without interrupting.", geo: "მე ყურადღებით მოვუსმინე მომხმარებლის პრეტენზიას გაწყვეტის გარეშე." },
+          { eng: "The account was unlocked within ten minutes.", geo: "ანგარიში განბლოკილ იქნა ათი წუთის განმავლობაში." }
+        ],
+        quiz: [
+          {
+            question: "What does the R in the STAR method stand for?",
+            options: ["Reaction", "Response", "Result", "Review"],
+            correct: "Result"
+          }
+        ]
+      },
+      ch8: {
+        title: "Chapter 8: The Roadmap: Daily Study Plan",
+        readHtml: `
+          <h2>The Roadmap: Daily Study Plan & Milestones</h2>
+          <img class="chapter-image" src="images/ch8.png" alt="Chapter 8 Illustration">
+          <p>Daily habits create fluency. Spend: 15 mins Vocab, 30 mins Writing, 30 mins Speaking, 15 mins Listening.</p>
+        `,
+        speaking: [
+          { eng: "The brain forgets sixty-six percent of new information after just one day.", geo: "ტვინი ახალი ინფორმაციის 66%-ს სულ რაღაც ერთ დღეში ივიწყებს." },
+          { eng: "Spaced repetition review schedules beat this forgetting curve.", geo: "ინტერვალური გამეორება ამარცხებს დავიწყების მრუდს." }
+        ],
+        quiz: [
+          {
+            question: "How much new information does the brain forget after just one day?",
+            options: ["10%", "30%", "66%", "90%"],
+            correct: "66%"
+          }
+        ]
+      },
+      sources: {
+        title: "Sources & Credits",
+        readHtml: `
+          <h2>Sources & Credits</h2>
+          <p>This program was built using research compiled across four specialized domains:</p>
+          <ol>
+            <li>Grammar, Vocab & Resources (CEFR B2 syllabus mapping).</li>
+            <li>Written Communication & Cases (Zendesk, Shopify, Stripe guidelines).</li>
+            <li>Speaking & Study Plan (Dixa empathy studies).</li>
+            <li>Interview & Assessment (TestGorilla recruitment statistics).</li>
+          </ol>
+        `,
+        speaking: [
+          { eng: "This program was built using research compiled across specialized domains.", geo: "ეს პროგრამა აშენდა სპეციალიზებულ სფეროებში შეგროვებული კვლევების საფუძველზე." }
+        ],
+        quiz: [
+          {
+            question: "Which company's statistics were used for CS assessment analysis?",
+            options: ["Google", "TestGorilla", "Zendesk", "Shopify"],
+            correct: "TestGorilla"
+          }
+        ]
+      }
+    };
+
+    let activeChapter = 'prelude';
+    let activeTab = 'read';
+    let currentQuizIdx = 0;
+    let quizScore = 0;
+
+    // Switch Chapter
+    function selectChapter(chapterId) {
+      activeChapter = chapterId;
+      currentQuizIdx = 0;
+      quizScore = 0;
+      
+      document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+      const activeItem = Array.from(document.querySelectorAll('.nav-item')).find(item => 
+        item.getAttribute('onclick').includes(`'${chapterId}'`)
+      );
+      if (activeItem) activeItem.classList.add('active');
+
+      renderContent();
+    }
+
+    // Switch Tab
+    function switchTab(tabId) {
+      activeTab = tabId;
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      const activeBtn = Array.from(document.querySelectorAll('.tab-btn')).find(btn => 
+        btn.getAttribute('onclick').includes(`'${tabId}'`)
+      );
+      if (activeBtn) activeBtn.classList.add('active');
+
+      renderContent();
+    }
+
+    // Render current view
+    function renderContent() {
+      const data = textbookData[activeChapter];
+      const contentArea = document.getElementById('content-area');
+      
+      if (activeTab === 'read') {
+        contentArea.innerHTML = `<div class="panel active">${data.readHtml}</div>`;
+      } 
+      else if (activeTab === 'practice') {
+        let practiceHtml = `
+          <div class="panel active">
+            <h2>🗣️ გამოთქმა და მოსმენა</h2>
+            <p style="margin-bottom: 2rem;">მოუსმინეთ სწორ ინგლისურ წარმოთქმას და შემდეგ თავად წაიკითხეთ მიკროფონით:</p>
+            <div class="practice-list">
+        `;
+        
+        data.speaking.forEach((item, idx) => {
+          practiceHtml += `
+            <div class="practice-item">
+              <div class="item-header">
+                <div>
+                  <div class="eng-sentence">${item.eng}</div>
+                  <div class="geo-sentence">${item.geo}</div>
+                </div>
+                <div class="controls">
+                  <button class="btn-circle" onclick="speak('${item.eng.replace(/'/g, "\\'")}')">🔊</button>
+                  <button class="btn-circle btn-mic" onclick="startRecognition(this, '${item.eng.replace(/'/g, "\\'")}')">🎙️</button>
+                </div>
+              </div>
+              <div class="status-alert"></div>
+            </div>
+          `;
+        });
+        
+        practiceHtml += `</div></div>`;
+        contentArea.innerHTML = practiceHtml;
+      } 
+      else if (activeTab === 'quiz') {
+        renderQuiz();
+      }
+    }
+
+    // Render Quiz view
+    function renderQuiz() {
+      const data = textbookData[activeChapter];
+      const contentArea = document.getElementById('content-area');
+      
+      if (currentQuizIdx < data.quiz.length) {
+        const q = data.quiz[currentQuizIdx];
+        
+        let optionsHtml = '';
+        q.options.forEach(opt => {
+          optionsHtml += `<button class="option-btn" onclick="checkAnswer(this, '${opt.replace(/'/g, "\\'")}')">${opt}</button>`;
+        });
+
+        contentArea.innerHTML = `
+          <div class="panel active">
+            <h2>🧠 ქვიზი - ${data.title}</h2>
+            <div class="quiz-question">${q.question}</div>
+            <div class="quiz-options">${optionsHtml}</div>
+            <button class="btn-next" id="quiz-next-btn" onclick="nextQuestion()">შემდეგი ➡️</button>
+          </div>
+        `;
+      } else {
+        contentArea.innerHTML = `
+          <div class="panel active" style="text-align: center; padding: 3rem 1rem;">
+            <h2>🎉 ტესტი დასრულდა!</h2>
+            <div style="font-size: 4rem; font-weight: 800; color: var(--accent); margin: 2rem 0;">
+              ${quizScore} / ${data.quiz.length}
+            </div>
+            <button class="tab-btn active" onclick="restartQuiz()">თავიდან დაწყება 🔄</button>
+          </div>
+        `;
+      }
+    }
+
+    // Text to Speech
+    function speak(text) {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'en-US';
+        utterance.rate = 0.9;
+        window.speechSynthesis.speak(utterance);
+      }
+    }
+
+    // Speech Recognition
+    function startRecognition(btn, targetText) {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SpeechRecognition) {
+        alert("გთხოვთ გამოიყენოთ Google Chrome მიკროფონით სავარჯიშოდ.");
+        return;
+      }
+      
+      const item = btn.closest('.practice-item');
+      const statusDiv = item.querySelector('.status-alert');
+      
+      btn.classList.add('recording');
+      statusDiv.style.display = 'block';
+      statusDiv.className = 'status-alert';
+      statusDiv.innerText = "გისმენთ...";
+
+      const recognition = new SpeechRecognition();
+      recognition.lang = 'en-US';
+      
+      recognition.onresult = function(event) {
+        const spoken = event.results[0][0].transcript.toLowerCase().trim().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
+        const target = targetText.toLowerCase().trim().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
+        
+        btn.classList.remove('recording');
+        
+        if (spoken === target) {
+          statusDiv.className = 'status-alert status-success';
+          statusDiv.innerText = "🎉 სწორია! საუცხოო გამოთქმაა.";
+        } else {
+          statusDiv.className = 'status-alert status-error';
+          statusDiv.innerText = `❌ სცადეთ თავიდან. თქვენ თქვით: "${event.results[0][0].transcript}"`;
+        }
+      };
+
+      recognition.onerror = function() {
+        btn.classList.remove('recording');
+        statusDiv.className = 'status-alert status-error';
+        statusDiv.innerText = "მიკროფონიდან ხმა არ ჩაიწერა.";
+      };
+
+      recognition.start();
+    }
+
+    // Check Quiz Answer
+    function checkAnswer(btn, opt) {
+      const q = textbookData[activeChapter].quiz[currentQuizIdx];
+      const panel = btn.closest('.panel');
+      
+      panel.querySelectorAll('.option-btn').forEach(b => {
+        b.disabled = true;
+        if (b.innerText === q.correct) b.classList.add('correct');
+      });
+
+      if (opt === q.correct) {
+        btn.classList.add('correct');
+        quizScore++;
+      } else {
+        btn.classList.add('incorrect');
+      }
+
+      document.getElementById('quiz-next-btn').style.display = 'block';
+    }
+
+    function nextQuestion() {
+      currentQuizIdx++;
+      renderQuiz();
+    }
+
+    function restartQuiz() {
+      currentQuizIdx = 0;
+      quizScore = 0;
+      renderQuiz();
+    }
+
+    // Initialize Page
+    selectChapter('prelude');
+  </script>
+</body>
+</html>

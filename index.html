@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Character Adjectives Practice - Comparative & Superlative</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-dark: #0b0f19;
+      --bg-card: rgba(22, 30, 49, 0.7);
+      --primary: #8b5cf6;
+      --primary-hover: #7c3aed;
+      --accent: #f59e0b;
+      --success: #10b981;
+      --danger: #ef4444;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border: rgba(255, 255, 255, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(139, 92, 246, 0.15) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(245, 158, 11, 0.1) 0px, transparent 50%);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 950px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 800;
+      background: linear-gradient(to right, #c084fc, #8b5cf6, #f59e0b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+    }
+
+    .warning-banner {
+      background: rgba(245, 158, 11, 0.1);
+      border: 1px solid rgba(245, 158, 11, 0.2);
+      color: var(--accent);
+      padding: 1rem;
+      border-radius: 1rem;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      justify-content: center;
+      gap: 0.8rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 0.8rem 1.6rem;
+      border-radius: 9999px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      font-size: 0.95rem;
+    }
+
+    .tab-btn:hover {
+      color: var(--text-main);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .tab-btn.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+      box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+    }
+
+    /* Card Panels */
+    .panel {
+      display: none;
+      width: 100%;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .panel.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Cards */
+    .card {
+      background: var(--bg-card);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--border);
+      border-radius: 1.5rem;
+      padding: 2rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      margin-bottom: 1.5rem;
+    }
+
+    .card-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 1.2rem;
+      border-left: 4px solid var(--accent);
+      padding-left: 0.8rem;
+    }
+
+    /* Word Audio Button */
+    .btn-word-sound {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 1rem;
+      margin-left: 0.4rem;
+      transition: color 0.2s;
+    }
+
+    .btn-word-sound:hover {
+      color: var(--accent);
+    }
+
+    /* Tables */
+    .table-container {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    th {
+      color: var(--text-muted);
+      font-weight: 600;
+      padding: 1rem;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9rem;
+    }
+
+    td {
+      padding: 1rem;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.95rem;
+      color: var(--text-main);
+    }
+
+    tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .highlight {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    /* Practice Items */
+    .practice-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      padding: 1.2rem;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 1rem;
+      border: 1px solid var(--border);
+      margin-bottom: 1rem;
+      transition: all 0.2s ease;
+    }
+
+    .practice-item:hover {
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .english-sentence {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: white;
+    }
+
+    .georgian-sentence {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-top: 0.2rem;
+    }
+
+    .controls {
+      display: flex;
+      gap: 0.5rem;
+      flex-shrink: 0;
+    }
+
+    .btn-circle {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-main);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      font-size: 1.1rem;
+    }
+
+    .btn-circle:hover {
+      background: var(--primary);
+      border-color: var(--primary);
+      transform: scale(1.05);
+    }
+
+    .btn-mic:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .btn-mic.recording {
+      background: var(--danger);
+      border-color: var(--danger);
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    .status-text {
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      display: none;
+    }
+
+    .status-success {
+      background: rgba(16, 185, 129, 0.1);
+      color: var(--success);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+    }
+
+    .status-error {
+      background: rgba(239, 68, 68, 0.1);
+      color: var(--danger);
+      border: 1px solid rgba(239, 68, 68, 0.2);
+    }
+
+    /* Short Story Box */
+    .story-box {
+      background: rgba(139, 92, 246, 0.05);
+      border: 1px solid rgba(139, 92, 246, 0.15);
+      border-radius: 1.5rem;
+      padding: 2rem;
+      margin-top: 2rem;
+    }
+
+    .story-english {
+      font-size: 1.25rem;
+      line-height: 1.8;
+      color: white;
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+    }
+
+    .story-georgian {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: var(--text-muted);
+    }
+
+    /* Quiz */
+    .quiz-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .quiz-question {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: white;
+      margin-bottom: 0.5rem;
+    }
+
+    .quiz-options {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.8rem;
+    }
+
+    @media(min-width: 600px) {
+      .quiz-options {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .option-btn {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      padding: 1.1rem;
+      border-radius: 1rem;
+      cursor: pointer;
+      text-align: left;
+      font-size: 1rem;
+      transition: all 0.2s ease;
+    }
+
+    .option-btn:hover {
+      background: rgba(255, 255, 255, 0.08);
+      transform: translateX(3px);
+    }
+
+    .option-btn.correct {
+      background: rgba(16, 185, 129, 0.15);
+      border-color: var(--success);
+      color: var(--success);
+      font-weight: 600;
+    }
+
+    .option-btn.incorrect {
+      background: rgba(239, 68, 68, 0.15);
+      border-color: var(--danger);
+      color: var(--danger);
+    }
+
+    .btn-next {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.9rem 1.8rem;
+      border-radius: 0.8rem;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: all 0.2s ease;
+      align-self: flex-end;
+      display: none;
+    }
+
+    .btn-next:hover {
+      background: var(--primary-hover);
+    }
+
+    .scoreboard {
+      text-align: center;
+      padding: 3rem 1rem;
+    }
+
+    .score-title {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .score-value {
+      font-size: 4rem;
+      font-weight: 800;
+      color: var(--accent);
+      margin-bottom: 2rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>ხასიათის ზედსართავი სახელები</h1>
+      <div class="subtitle">Character Adjectives Study & Pronunciation App</div>
+    </header>
+
+    <div class="warning-banner">
+      💡 <strong>ყურადღება:</strong> ბრაუზერი უსაფრთხოების გამო ბლოკავს მიკროფონს ადგილობრივ ფაილებზე (file://). <br>
+      მიკროფონის ასამუშავებლად გახსენით ეს ლინკი: <strong><a href="http://localhost:8000/research/Minibook/cs-english-mastery/character_adjectives_practice.html" style="color: var(--accent); text-decoration: underline;">http://localhost:8000/research/...</a></strong>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab(this, 'grammar')">📖 სიტყვების ბაზა</button>
+      <button class="tab-btn" onclick="switchTab(this, 'speaking')">🗣️ გამოთქმა & მოსმენა</button>
+      <button class="tab-btn" onclick="switchTab(this, 'story')">📚 მცირე ტექსტი</button>
+      <button class="tab-btn" onclick="switchTab(this, 'writing')">✍️ წერითი ქვიზი</button>
+    </div>
+
+    <!-- Tab 1: Adjectives List -->
+    <div id="grammar-panel" class="panel active">
+      <div class="card">
+        <h2 class="card-title">მოკლე და y-ზე დაბოლოებული ზედსართავები</h2>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Base Form</th>
+                <th>Comparative</th>
+                <th>Superlative</th>
+                <th>მნიშვნელობა</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>kind</strong> <button class="btn-word-sound" onclick="speak('kind')">🔊</button></td>
+                <td><span class="highlight">kinder</span> <button class="btn-word-sound" onclick="speak('kinder')">🔊</button></td>
+                <td><span class="highlight">the kindest</span> <button class="btn-word-sound" onclick="speak('the kindest')">🔊</button></td>
+                <td>კეთილი - უფრო კეთილი - ყველაზე კეთილი</td>
+              </tr>
+              <tr>
+                <td><strong>calm</strong> <button class="btn-word-sound" onclick="speak('calm')">🔊</button></td>
+                <td><span class="highlight">calmer</span> <button class="btn-word-sound" onclick="speak('calmer')">🔊</button></td>
+                <td><span class="highlight">the calmest</span> <button class="btn-word-sound" onclick="speak('the calmest')">🔊</button></td>
+                <td>მშვიდი - უფრო მშვიდი - ყველაზე მშვიდი</td>
+              </tr>
+              <tr>
+                <td><strong>shy</strong> <button class="btn-word-sound" onclick="speak('shy')">🔊</button></td>
+                <td><span class="highlight">shyer</span> <button class="btn-word-sound" onclick="speak('shyer')">🔊</button></td>
+                <td><span class="highlight">the shyest</span> <button class="btn-word-sound" onclick="speak('the shyest')">🔊</button></td>
+                <td>mორცხვი - უფრო მორცხვი - ყველაზე მორცხვი</td>
+              </tr>
+              <tr>
+                <td><strong>funny</strong> <button class="btn-word-sound" onclick="speak('funny')">🔊</button></td>
+                <td><span class="highlight">funnier</span> <button class="btn-word-sound" onclick="speak('funnier')">🔊</button></td>
+                <td><span class="highlight">the funniest</span> <button class="btn-word-sound" onclick="speak('the funniest')">🔊</button></td>
+                <td>სასაცილო - უფრო სასაცილო - ყველაზე სასაცილო</td>
+              </tr>
+              <tr>
+                <td><strong>happy</strong> <button class="btn-word-sound" onclick="speak('happy')">🔊</button></td>
+                <td><span class="highlight">happier</span> <button class="btn-word-sound" onclick="speak('happier')">🔊</button></td>
+                <td><span class="highlight">the happiest</span> <button class="btn-word-sound" onclick="speak('the happiest')">🔊</button></td>
+                <td>ბედნიერი - უფრო ბედნიერი - ყველაზე ბედნიერი</td>
+              </tr>
+              <tr>
+                <td><strong>lazy</strong> <button class="btn-word-sound" onclick="speak('lazy')">🔊</button></td>
+                <td><span class="highlight">lazier</span> <button class="btn-word-sound" onclick="speak('lazier')">🔊</button></td>
+                <td><span class="highlight">the laziest</span> <button class="btn-word-sound" onclick="speak('the laziest')">🔊</button></td>
+                <td>ზარმაცი - უფრო ზარმაცი - ყველაზე ზარმაცი</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="card-title">გრძელი ზედსართავები (more / the most)</h2>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Base Form</th>
+                <th>Comparative</th>
+                <th>Superlative</th>
+                <th>მნიშვნელობა</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>friendly</strong> <button class="btn-word-sound" onclick="speak('friendly')">🔊</button></td>
+                <td>more friendly <button class="btn-word-sound" onclick="speak('more friendly')">🔊</button></td>
+                <td>the most friendly <button class="btn-word-sound" onclick="speak('the most friendly')">🔊</button></td>
+                <td>მეგობრული - უფრო მეგობრული - ყველაზე მეგობრული</td>
+              </tr>
+              <tr>
+                <td><strong>talkative</strong> <button class="btn-word-sound" onclick="speak('talkative')">🔊</button></td>
+                <td>more talkative <button class="btn-word-sound" onclick="speak('more talkative')">🔊</button></td>
+                <td>the most talkative <button class="btn-word-sound" onclick="speak('the most talkative')">🔊</button></td>
+                <td>სიტყვაუხვი - უფრო სიტყვაუხვი - ყველაზე სიტყვაუხვი</td>
+              </tr>
+              <tr>
+                <td><strong>responsible</strong> <button class="btn-word-sound" onclick="speak('responsible')">🔊</button></td>
+                <td>more responsible <button class="btn-word-sound" onclick="speak('more responsible')">🔊</button></td>
+                <td>the most responsible <button class="btn-word-sound" onclick="speak('the most responsible')">🔊</button></td>
+                <td>პასუხისმგებლიანი - უფრო პასუხისმგებლიანი</td>
+              </tr>
+              <tr>
+                <td><strong>creative</strong> <button class="btn-word-sound" onclick="speak('creative')">🔊</button></td>
+                <td>more creative <button class="btn-word-sound" onclick="speak('more creative')">🔊</button></td>
+                <td>the most creative <button class="btn-word-sound" onclick="speak('the most creative')">🔊</button></td>
+                <td>კრეატიული - უფრო კრეატიული - ყველაზე კრეატიული</td>
+              </tr>
+              <tr>
+                <td><strong>polite</strong> <button class="btn-word-sound" onclick="speak('polite')">🔊</button></td>
+                <td>more polite <button class="btn-word-sound" onclick="speak('more polite')">🔊</button></td>
+                <td>the most polite <button class="btn-word-sound" onclick="speak('the most polite')">🔊</button></td>
+                <td>თავაზიანი - უფრო თავაზიანი - ყველაზე თავაზიანი</td>
+              </tr>
+              <tr>
+                <td><strong>organized</strong> <button class="btn-word-sound" onclick="speak('organized')">🔊</button></td>
+                <td>more organized <button class="btn-word-sound" onclick="speak('more organized')">🔊</button></td>
+                <td>the most organized <button class="btn-word-sound" onclick="speak('the most organized')">🔊</button></td>
+                <td>მოწესრიგებული - უფრო მოწესრიგებული</td>
+              </tr>
+              <tr>
+                <td><strong>patient</strong> <button class="btn-word-sound" onclick="speak('patient')">🔊</button></td>
+                <td>more patient <button class="btn-word-sound" onclick="speak('more patient')">🔊</button></td>
+                <td>the most patient <button class="btn-word-sound" onclick="speak('the most patient')">🔊</button></td>
+                <td>მომთმენი - უფრო მომთმენი - ყველაზე მომთმენი</td>
+              </tr>
+              <tr>
+                <td><strong>honest</strong> <button class="btn-word-sound" onclick="speak('honest')">🔊</button></td>
+                <td>more honest <button class="btn-word-sound" onclick="speak('more honest')">🔊</button></td>
+                <td>the most honest <button class="btn-word-sound" onclick="speak('the most honest')">🔊</button></td>
+                <td>გულწრფელი - უფრო გულწრფელი - ყველაზე გულწრფელი</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="card-title">არაწესიერი ზედსართავები (Irregular)</h2>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Base Form</th>
+                <th>Comparative</th>
+                <th>Superlative</th>
+                <th>მნიშვნელობა</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>good</strong> <button class="btn-word-sound" onclick="speak('good')">🔊</button></td>
+                <td><span class="highlight">better</span> <button class="btn-word-sound" onclick="speak('better')">🔊</button></td>
+                <td><span class="highlight">the best</span> <button class="btn-word-sound" onclick="speak('the best')">🔊</button></td>
+                <td>კარგი - უკეთესი - საუკეთესო</td>
+              </tr>
+              <tr>
+                <td><strong>bad</strong> <button class="btn-word-sound" onclick="speak('bad')">🔊</button></td>
+                <td><span class="highlight">worse</span> <button class="btn-word-sound" onclick="speak('worse')">🔊</button></td>
+                <td><span class="highlight">the worst</span> <button class="btn-word-sound" onclick="speak('the worst')">🔊</button></td>
+                <td>ცუდი - უფრო ცუდი - ყველაზე ცუდი</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 2: Speaking & Listening -->
+    <div id="speaking-panel" class="panel">
+      <div class="card">
+        <h2 class="card-title">🗣️ გამოთქმის სავარჯიშოები</h2>
+        <p style="color: var(--text-muted); margin-bottom: 1.5rem;">
+          მოუსმინეთ (🔊) და გაიმეორეთ მიკროფონით (🎙️). ბრაუზერი ავტომატურად შეამოწმებს თქვენს გამოთქმას:
+        </p>
+        <div id="speaking-items-container"></div>
+      </div>
+    </div>
+
+    <!-- Tab 3: Short Story -->
+    <div id="story-panel" class="panel">
+      <div class="card">
+        <div class="item-header" style="margin-bottom: 1.5rem;">
+          <h2 class="card-title" style="margin-bottom: 0;">📚 მცირე სასწავლო ტექსტი</h2>
+          <div class="controls">
+            <button class="btn-circle" onclick="speak(document.getElementById('story-en-text').innerText)" title="მოუსმინე ტექსტს">🔊</button>
+            <button class="btn-circle btn-mic" onclick="startRecognition(this, document.getElementById('story-en-text').innerText)" title="წაიკითხე ხმამაღლა">🎙️</button>
+          </div>
+        </div>
+        <div class="status-text" id="story-status"></div>
+        
+        <div class="story-box">
+          <div class="story-english" id="story-en-text">My name is Daji, and I work with Danieli in a lovely seaside cafe. Danieli is a very calm and patient manager. He is never lazy and always stays organized. I think I am a responsible and polite worker, but sometimes I am a bit shy. Yesterday, an angry customer came in, but Danieli stayed calmer than anyone else. In the end, it was the best day of the week, and we felt like the happiest team!</div>
+          <hr style="border: 0; border-top: 1px solid var(--border); margin: 1.5rem 0;">
+          <div class="story-georgian">ჩემი სახელია დაჯი, და მე ვმუშაობ დანიელისთან ერთად მშვენიერ ზღვისპირა კაფეში. დანიელი ძალიან მშვიდი და მომთმენი მენეჯერია. ის არასდროს არის ზარმაცი და ყოველთვის მოწესრიგებულია. ვფიქრობ, მე პასუხისმგებლიანი და თავაზიანი თანამშრომელი ვარ, მაგრამ ხანდახან ცოტა მორცხვი ვარ. გუშინ ერთი გაბრაზებული მომხმარებელი შემოვიდა, მაგრამ დანიელი ყველაზე მშვიდად დარჩა. საბოლოოდ, ეს იყო კვირის საუკეთესო დღე და ჩვენ თავი ყველაზე ბედნიერ გუნდად ვიგრძენით!</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 4: Writing Quiz -->
+    <div id="writing-panel" class="panel">
+      <div class="card">
+        <h2 class="card-title">✍️ ქვიზი - ჩაწერეთ სწორი ფორმა</h2>
+        
+        <div class="quiz-container" id="quiz-box">
+          <div class="quiz-question" id="question-text">კითხვა</div>
+          <div class="quiz-options" id="options-box"></div>
+          <button class="btn-next" id="next-btn" onclick="nextQuestion()">შემდეგი ➡️</button>
+        </div>
+
+        <div class="scoreboard" id="score-box" style="display: none;">
+          <h2 class="score-title">ტესტი დასრულდა!</h2>
+          <div class="score-value" id="score-value">0 / 0</div>
+          <button class="tab-btn active" onclick="restartQuiz()">თავიდან დაწყება 🔄</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Tab switcher
+    function switchTab(btnElement, tabId) {
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      
+      document.getElementById(tabId + '-panel').classList.add('active');
+      
+      if (btnElement) {
+        btnElement.classList.add('active');
+      } else {
+        // Fallback finder
+        const activeBtn = Array.from(document.querySelectorAll('.tab-btn')).find(b => {
+          const onclickAttr = b.getAttribute('onclick');
+          return onclickAttr && onclickAttr.includes(`'${tabId}'`);
+        });
+        if (activeBtn) activeBtn.classList.add('active');
+      }
+    }
+
+    // Voice sentences data
+    const sentences = [
+      { eng: "This girl is very kind and nice.", geo: "ეს გოგო ძალიან კეთილი და საყვარელია." },
+      { eng: "My mom is the kindest person in the world.", geo: "დედაჩემი ყველაზე კეთილი ადამიანია მსოფლიოში." },
+      { eng: "Who is the kindest person you know?", geo: "ვინ არის ყველაზე კეთილი ადამიანი ვისაც იცნობ?" },
+      { eng: "My son is a very calm child.", geo: "ჩემი ვაჟი არის ძალიან მშვიდი ბავშვი." },
+      { eng: "The sea is very calm today.", geo: "ზღვა ძალიან მშვიდია დღეს." },
+      { eng: "My boss is a very calm person and he never gets angry.", geo: "ჩემი უფროსი ძალიან მშვიდი ადამიანია და ის არასდროს ბრაზდება." },
+      { eng: "My children are shy but my son is shyer than my daughter.", geo: "ჩემი შვილები მორცხვები არიან მაგრამ ჩემი ვაჟი უფრო მორცხვია ვიდრე ჩემი ქალიშვილი." },
+      { eng: "My sister is funnier than I am.", geo: "ჩემი და უფრო სასაცილოა ვიდრე მე." },
+      { eng: "She is the funniest person in our family.", geo: "ის ყველაზე სასაცილო ადამიანია ჩვენს ოჯახში." },
+      { eng: "They are very friendly people but the husband is friendlier than the wife.", geo: "ქმარი უფრო მეგობრულია ვიდრე ცოლი." },
+      { eng: "My sister is more talkative than I am.", geo: "ჩემი და უფრო ლაპარაკის მოყვარულია ვიდრე მე." },
+      { eng: "My aunt is the most talkative person in our family.", geo: "დეიდაჩემი არის ყველაზე სიტყვაუხვი ადამიანი ჩვენს ოჯახში." },
+      { eng: "Ann is more responsible than Marry in my job.", geo: "ანა უფრო პასუხისმგებლიანია ვიდრე მერი ჩემს სამსახურში." },
+      { eng: "Ann is the most responsible worker in my job.", geo: "ანა არის ყველაზე პასუხისმგებლიანი თანამშრომელი ჩემს სამსახურში." },
+      { eng: "My sister is more creative than I am.", geo: "ჩემი და უფრო კრეატიულია ვიდრე მე." },
+      { eng: "I think it is very important to be polite.", geo: "მე ვფიქრობ ძალიან მნიშვნელოვანია, რომ იყო თავაზიანი." },
+      { eng: "My son is the laziest person I know.", geo: "ჩემი ვაჟი არის ყველაზე ზარმაცი ადამიანი ვისაც ვიცნობ." },
+      { eng: "I am the most organized person in my family.", geo: "მე ვფიქრობ მე ვარ ყველაზე მოწესრიგებული ადამიანი ჩემს ოჯახში." },
+      { eng: "George is the most patient person I know.", geo: "გიორგი არის ყველაზე მომთმენი ადამიანი ვისაც ვიცნობ." },
+      { eng: "I think I am an honest person.", geo: "მე ვფიქრობ მე ვარ გულწრფელი ადამიანი." },
+      { eng: "My new job is better than the previous one.", geo: "ჩემი ახალი სამსახური უკეთესია წინაზე." },
+      { eng: "Batumi is the best seaside resort in Georgia.", geo: "ბათუმი არის საუკეთესო ზღვისპირა კურორტი საქართველოში." },
+      { eng: "Tsikhisdziri is better than Batumi.", geo: "ციხისძირი უკეთესია ვიდრე ბათუმი." },
+      { eng: "This restaurant is worse than the one which is near our house.", geo: "ეს რესტორანი უფრო ცუდია ვიდრე ის, რომელიც ჩვენს სახლთან ახლოსაა." },
+      { eng: "This is the worst restaurant in the city.", geo: "ეს ყველაზე ცუდი რესტორანია ქალაქში." }
+    ];
+
+    // Populate Speaking Items
+    const container = document.getElementById('speaking-items-container');
+    sentences.forEach((item) => {
+      container.innerHTML += `
+        <div class="practice-item">
+          <div class="item-header">
+            <div>
+              <div class="english-sentence">${item.eng}</div>
+              <div class="georgian-sentence">${item.geo}</div>
+            </div>
+            <div class="controls">
+              <button class="btn-circle" onclick="speak('${item.eng.replace(/'/g, "\\'")}')" title="მოუსმინე">🔊</button>
+              <button class="btn-circle btn-mic" onclick="startRecognition(this, '${item.eng.replace(/'/g, "\\'")}')" title="თქვი ხმამაღლა">🎙️</button>
+            </div>
+          </div>
+          <div class="status-text"></div>
+        </div>
+      `;
+    });
+
+    // Text to Speech
+    function speak(text) {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'en-US';
+        utterance.rate = 0.9;
+        window.speechSynthesis.speak(utterance);
+      }
+    }
+
+    // Speech Recognition
+    function startRecognition(btn, targetText) {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SpeechRecognition) {
+        alert("გთხოვთ გამოიყენოთ Google Chrome მიკროფონით სავარჯიშოდ.");
+        return;
+      }
+      
+      const isStory = btn.closest('.card') && btn.closest('.card').querySelector('#story-status');
+      const statusDiv = isStory ? document.getElementById('story-status') : btn.closest('.practice-item').querySelector('.status-text');
+      
+      btn.classList.add('recording');
+      statusDiv.style.display = 'block';
+      statusDiv.className = 'status-text';
+      statusDiv.innerText = "გისმენთ, თქვით წინადადება...";
+
+      const recognition = new SpeechRecognition();
+      recognition.lang = 'en-US';
+
+      recognition.onresult = function(event) {
+        const spokenText = event.results[0][0].transcript.toLowerCase().trim().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
+        const cleanTarget = targetText.toLowerCase().trim().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
+
+        btn.classList.remove('recording');
+
+        if (spokenText === cleanTarget || cleanTarget.includes(spokenText) || spokenText.includes(cleanTarget)) {
+          statusDiv.className = 'status-text status-success';
+          statusDiv.innerText = "🎉 სწორია! საუცხოო გამოთქმაა.";
+        } else {
+          statusDiv.className = 'status-text status-error';
+          statusDiv.innerText = `❌ სცადეთ თავიდან. თქვენ თქვით: "${event.results[0][0].transcript}"`;
+        }
+      };
+
+      recognition.onerror = function() {
+        btn.classList.remove('recording');
+        statusDiv.className = 'status-text status-error';
+        statusDiv.innerText = "მიკროფონიდან ხმა არ ჩაიწერა. დარწმუნდით, რომ იყენებთ localhost ლინკს.";
+      };
+
+      recognition.start();
+    }
+
+    // Quiz Questions Data
+    const quizData = [
+      {
+        question: "1. My mom is the _______ person in the world. (kind)",
+        options: ["kind", "kinder", "kindest", "more kind"],
+        correct: "kindest"
+      },
+      {
+        question: "2. My son is _______ than my daughter. (shy)",
+        options: ["shyer", "shyest", "more shy", "shyst"],
+        correct: "shyer"
+      },
+      {
+        question: "3. She is the _______ person in our family. (funny)",
+        options: ["funnier", "funniest", "funnyest", "funny"],
+        correct: "funniest"
+      },
+      {
+        question: "4. Ann is the _______ responsible worker in my job.",
+        options: ["more", "most", "the most", "mostest"],
+        correct: "most"
+      },
+      {
+        question: "5. My new job is _______ than the previous one. (good)",
+        options: ["gooder", "better", "best", "the best"],
+        correct: "better"
+      },
+      {
+        question: "6. This is the _______ restaurant in the city. (bad)",
+        options: ["worse", "worst", "badest", "the worst"],
+        correct: "worst"
+      },
+      {
+        question: "7. Tsikhisdziri is _______ than Batumi. (good)",
+        options: ["gooder", "better", "best", "the best"],
+        correct: "better"
+      },
+      {
+        question: "8. This restaurant is _______ than the one near our house. (bad)",
+        options: ["worse", "worst", "badder", "the worse"],
+        correct: "worse"
+      }
+    ];
+
+    let currentQuestionIdx = 0;
+    let score = 0;
+
+    function loadQuestion() {
+      const q = quizData[currentQuestionIdx];
+      document.getElementById("question-text").innerText = q.question;
+      
+      const optionsBox = document.getElementById("options-box");
+      optionsBox.innerHTML = "";
+      
+      const nextBtn = document.getElementById("next-btn");
+      nextBtn.style.display = "none";
+      
+      q.options.forEach(option => {
+        const btn = document.createElement("button");
+        btn.className = "option-btn";
+        btn.innerText = option;
+        btn.onclick = () => checkAnswer(btn, option);
+        optionsBox.appendChild(btn);
+      });
+    }
+
+    function checkAnswer(selectedBtn, selectedOption) {
+      const q = quizData[currentQuestionIdx];
+      const optionsBox = document.getElementById("options-box");
+      
+      optionsBox.querySelectorAll(".option-btn").forEach(btn => {
+        btn.disabled = true;
+        if (btn.innerText === q.correct) {
+          btn.classList.add("correct");
+        }
+      });
+
+      if (selectedOption === q.correct) {
+        selectedBtn.classList.add("correct");
+        score++;
+      } else {
+        selectedBtn.classList.add("incorrect");
+      }
+
+      document.getElementById("next-btn").style.display = "block";
+    }
+
+    function nextQuestion() {
+      currentQuestionIdx++;
+      if (currentQuestionIdx < quizData.length) {
+        loadQuestion();
+      } else {
+        showResults();
+      }
+    }
+
+    function showResults() {
+      document.getElementById("quiz-box").style.display = "none";
+      document.getElementById("score-box").style.display = "block";
+      document.getElementById("score-value").innerText = `${score} / ${quizData.length}`;
+    }
+
+    function restartQuiz() {
+      currentQuestionIdx = 0;
+      score = 0;
+      document.getElementById("quiz-box").style.display = "flex";
+      document.getElementById("score-box").style.display = "none";
+      loadQuestion();
+    }
+
+    // Initialize Quiz
+    loadQuestion();
+  </script>
+</body>
+</html>
