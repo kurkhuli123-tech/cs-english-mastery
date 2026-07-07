@@ -875,6 +875,12 @@
       loadQuestion();
     }
 
+    // Hide warning banner if opened via web server (http/https)
+    if (window.location.protocol !== 'file:') {
+      const banner = document.querySelector('.warning-banner');
+      if (banner) banner.style.display = 'none';
+    }
+
     // Initialize Quiz
     loadQuestion();
   </script>
