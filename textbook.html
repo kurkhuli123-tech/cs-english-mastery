@@ -573,6 +573,43 @@
         text-align: center;
       }
     }
+
+    /* Short Story Box & Word Sound Styles */
+    .story-box {
+      background: rgba(139, 92, 246, 0.05);
+      border: 1px solid rgba(139, 92, 246, 0.15);
+      border-radius: 1.5rem;
+      padding: 2rem;
+      margin-top: 2rem;
+    }
+
+    .story-english {
+      font-size: 1.25rem;
+      line-height: 1.8;
+      color: white;
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+    }
+
+    .story-georgian {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: var(--text-muted);
+    }
+
+    .btn-word-sound {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 1rem;
+      margin-left: 0.4rem;
+      transition: color 0.2s;
+    }
+
+    .btn-word-sound:hover {
+      color: var(--accent);
+    }
   </style>
 </head>
 <body>
@@ -602,6 +639,7 @@
       <li class="nav-item" onclick="selectChapter(this, 'ch6')">6. Speaking on the Line</li>
       <li class="nav-item" onclick="selectChapter(this, 'ch7')">7. Navigating the Interview</li>
       <li class="nav-item" onclick="selectChapter(this, 'ch8')">8. Study Roadmap</li>
+      <li class="nav-item" onclick="selectChapter(this, 'ch9')">9. Character Adjectives</li>
       <li class="nav-item" onclick="selectChapter(this, 'sources')">📚 Sources & Credits</li>
     </ul>
   </div>
@@ -1020,6 +1058,239 @@ Support Team</pre>
             question: "How much new information does the brain forget after just one day?",
             options: ["10%", "30%", "66%", "90%"],
             correct: "66%"
+          }
+        ]
+      },
+      ch9: {
+        title: "Chapter 9: Character Adjectives",
+        readHtml: `
+          <h2>ხასიათის ზედსართავი სახელები (Character Adjectives)</h2>
+          <p>მოცემულ ცხრილში მოცემულია ხასიათის ძირითადი ზედსართავი სახელები, მათი შედარებითი და აღმატებითი ხარისხები. დააჭირეთ ხმის ღილაკს (🔊) სწორი წარმოთქმის მოსასმენად.</p>
+
+          <h3>1. მოკლე და y-ზე დაბოლოებული ზედსართავები</h3>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Base Form</th>
+                  <th>Comparative</th>
+                  <th>Superlative</th>
+                  <th>მნიშვნელობა</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>kind</strong> <button class="btn-word-sound" onclick="speak('kind')">🔊</button></td>
+                  <td><span class="highlight">kinder</span> <button class="btn-word-sound" onclick="speak('kinder')">🔊</button></td>
+                  <td><span class="highlight">the kindest</span> <button class="btn-word-sound" onclick="speak('the kindest')">🔊</button></td>
+                  <td>კეთილი - უფრო კეთილი - ყველაზე კეთილი</td>
+                </tr>
+                <tr>
+                  <td><strong>calm</strong> <button class="btn-word-sound" onclick="speak('calm')">🔊</button></td>
+                  <td><span class="highlight">calmer</span> <button class="btn-word-sound" onclick="speak('calmer')">🔊</button></td>
+                  <td><span class="highlight">the calmest</span> <button class="btn-word-sound" onclick="speak('the calmest')">🔊</button></td>
+                  <td>მშვიდი - უფრო მშვიდი - ყველაზე მშვიდი</td>
+                </tr>
+                <tr>
+                  <td><strong>shy</strong> <button class="btn-word-sound" onclick="speak('shy')">🔊</button></td>
+                  <td><span class="highlight">shyer</span> <button class="btn-word-sound" onclick="speak('shyer')">🔊</button></td>
+                  <td><span class="highlight">the shyest</span> <button class="btn-word-sound" onclick="speak('the shyest')">🔊</button></td>
+                  <td>მორცხვი - უფრო მორცხვი - ყველაზე მორცხვი</td>
+                </tr>
+                <tr>
+                  <td><strong>funny</strong> <button class="btn-word-sound" onclick="speak('funny')">🔊</button></td>
+                  <td><span class="highlight">funnier</span> <button class="btn-word-sound" onclick="speak('funnier')">🔊</button></td>
+                  <td><span class="highlight">the funniest</span> <button class="btn-word-sound" onclick="speak('the funniest')">🔊</button></td>
+                  <td>სასაცილო - უფრო სასაცილო - ყველაზე სასაცილო</td>
+                </tr>
+                <tr>
+                  <td><strong>happy</strong> <button class="btn-word-sound" onclick="speak('happy')">🔊</button></td>
+                  <td><span class="highlight">happier</span> <button class="btn-word-sound" onclick="speak('happier')">🔊</button></td>
+                  <td><span class="highlight">the happiest</span> <button class="btn-word-sound" onclick="speak('the happiest')">🔊</button></td>
+                  <td>ბედნიერი - უფრო ბედნიერი - ყველაზე ბედნიერი</td>
+                </tr>
+                <tr>
+                  <td><strong>lazy</strong> <button class="btn-word-sound" onclick="speak('lazy')">🔊</button></td>
+                  <td><span class="highlight">lazier</span> <button class="btn-word-sound" onclick="speak('lazier')">🔊</button></td>
+                  <td><span class="highlight">the laziest</span> <button class="btn-word-sound" onclick="speak('the laziest')">🔊</button></td>
+                  <td>ზარმაცი - უფრო ზარმაცი - ყველაზე ზარმაცი</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 style="margin-top: 2rem;">2. გრძელი ზედსართავები (more / the most)</h3>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Base Form</th>
+                  <th>Comparative</th>
+                  <th>Superlative</th>
+                  <th>მნიშვნელობა</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>friendly</strong> <button class="btn-word-sound" onclick="speak('friendly')">🔊</button></td>
+                  <td>more friendly <button class="btn-word-sound" onclick="speak('more friendly')">🔊</button></td>
+                  <td>the most friendly <button class="btn-word-sound" onclick="speak('the most friendly')">🔊</button></td>
+                  <td>მეგობრული - უფრო მეგობრული - ყველაზე მეგობრული</td>
+                </tr>
+                <tr>
+                  <td><strong>talkative</strong> <button class="btn-word-sound" onclick="speak('talkative')">🔊</button></td>
+                  <td>more talkative <button class="btn-word-sound" onclick="speak('more talkative')">🔊</button></td>
+                  <td>the most talkative <button class="btn-word-sound" onclick="speak('the most talkative')">🔊</button></td>
+                  <td>სიტყვაუხვი - უფრო სიტყვაუხვი - ყველაზე სიტყვაუხვი</td>
+                </tr>
+                <tr>
+                  <td><strong>responsible</strong> <button class="btn-word-sound" onclick="speak('responsible')">🔊</button></td>
+                  <td>more responsible <button class="btn-word-sound" onclick="speak('more responsible')">🔊</button></td>
+                  <td>the most responsible <button class="btn-word-sound" onclick="speak('the most responsible')">🔊</button></td>
+                  <td>პასუხისმგებლიანი - უფრო პასუხისმგებლიანი</td>
+                </tr>
+                <tr>
+                  <td><strong>creative</strong> <button class="btn-word-sound" onclick="speak('creative')">🔊</button></td>
+                  <td>more creative <button class="btn-word-sound" onclick="speak('more creative')">🔊</button></td>
+                  <td>the most creative <button class="btn-word-sound" onclick="speak('the most creative')">🔊</button></td>
+                  <td>კრეატიული - უფრო კრეატიული - ყველაზე კრეატიული</td>
+                </tr>
+                <tr>
+                  <td><strong>polite</strong> <button class="btn-word-sound" onclick="speak('polite')">🔊</button></td>
+                  <td>more polite <button class="btn-word-sound" onclick="speak('more polite')">🔊</button></td>
+                  <td>the most polite <button class="btn-word-sound" onclick="speak('the most polite')">🔊</button></td>
+                  <td>თავაზიანი - უფრო თავაზიანი - ყველაზე თავაზიანი</td>
+                </tr>
+                <tr>
+                  <td><strong>organized</strong> <button class="btn-word-sound" onclick="speak('organized')">🔊</button></td>
+                  <td>more organized <button class="btn-word-sound" onclick="speak('more organized')">🔊</button></td>
+                  <td>the most organized <button class="btn-word-sound" onclick="speak('the most organized')">🔊</button></td>
+                  <td>მოწესრიგებული - უფრო მოწესრიგებული</td>
+                </tr>
+                <tr>
+                  <td><strong>patient</strong> <button class="btn-word-sound" onclick="speak('patient')">🔊</button></td>
+                  <td>more patient <button class="btn-word-sound" onclick="speak('more patient')">🔊</button></td>
+                  <td>the most patient <button class="btn-word-sound" onclick="speak('the most patient')">🔊</button></td>
+                  <td>მომთმენი - უფრო მომთმენი - ყველაზე მომთმენი</td>
+                </tr>
+                <tr>
+                  <td><strong>honest</strong> <button class="btn-word-sound" onclick="speak('honest')">🔊</button></td>
+                  <td>more honest <button class="btn-word-sound" onclick="speak('more honest')">🔊</button></td>
+                  <td>the most honest <button class="btn-word-sound" onclick="speak('the most honest')">🔊</button></td>
+                  <td>გულწრფელი - უფრო გულწრფელი - ყველაზე გულწრფელი</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 style="margin-top: 2rem;">3. არაწესიერი ზედსართავები (Irregular)</h3>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Base Form</th>
+                  <th>Comparative</th>
+                  <th>Superlative</th>
+                  <th>მნიშვნელობა</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>good</strong> <button class="btn-word-sound" onclick="speak('good')">🔊</button></td>
+                  <td><span class="highlight">better</span> <button class="btn-word-sound" onclick="speak('better')">🔊</button></td>
+                  <td><span class="highlight">the best</span> <button class="btn-word-sound" onclick="speak('the best')">🔊</button></td>
+                  <td>კარგი - უკეთესი - საუკეთესო</td>
+                </tr>
+                <tr>
+                  <td><strong>bad</strong> <button class="btn-word-sound" onclick="speak('bad')">🔊</button></td>
+                  <td><span class="highlight">worse</span> <button class="btn-word-sound" onclick="speak('worse')">🔊</button></td>
+                  <td><span class="highlight">the worst</span> <button class="btn-word-sound" onclick="speak('the worst')">🔊</button></td>
+                  <td>ცუდი - უფრო ცუდი - ყველაზე ცუდი</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="story-box" style="margin-top: 3rem;">
+            <h2 style="color: white; margin-bottom: 1.5rem; border-left: 4px solid var(--accent); padding-left: 0.8rem;">📚 მცირე სასწავლო ტექსტი (Short Story)</h2>
+            <div class="story-english">My name is Daji, and I work with Danieli in a lovely seaside cafe. Danieli is a very calm and patient manager. He is never lazy and always stays organized. I think I am a responsible and polite worker, but sometimes I am a bit shy. Yesterday, an angry customer came in, but Danieli stayed calmer than anyone else. In the end, it was the best day of the week, and we felt like the happiest team!</div>
+            <hr style="border: 0; border-top: 1px solid var(--border); margin: 1.5rem 0;">
+            <div class="story-georgian">ჩემი სახელია დაჯი, და მე ვმუშაობ დანიელისთან ერთად მშვენიერ ზღვისპირა კაფეში. დანიელი ძალიან მშვიდი და მომთმენი მენეჯერია. ის არასდროს არის ზარმაცი და ყოველთვის მოწესრიგებულია. ვფიქრობ, მე პასუხისმგებლიანი და თავაზიანი თანამშრომელი ვარ, მაგრამ ხანდახან ცოტა მორცხვი ვარ. გუშინ ერთი გაბრაზებული მომხმარებელი შემოვიდა, მაგრამ დანიელი ყველაზე მშვიდად დარჩა. საბოლოოდ, ეს იყო კვირის საუკეთესო დღე და ჩვენ თავი ყველაზე ბედნიერ გუნდად ვიგრძენით!</div>
+          </div>
+        `,
+        speaking: [
+          { eng: "This girl is very kind and nice.", geo: "ეს გოგო ძალიან კეთილი და საყვარელია." },
+          { eng: "My mom is the kindest person in the world.", geo: "დედაჩემი ყველაზე კეთილი ადამიანია მსოფლიოში." },
+          { eng: "Who is the kindest person you know?", geo: "ვინ არის ყველაზე კეთილი ადამიანი ვისაც იცნობ?" },
+          { eng: "My son is a very calm child.", geo: "ჩემი ვაჟი არის ძალიან მშვიდი ბავშვი." },
+          { eng: "The sea is very calm today.", geo: "ზღვა ძალიან მშვიდია დღეს." },
+          { eng: "My boss is a very calm person and he never gets angry.", geo: "ჩემი უფროსი ძალიან მშვიდი ადამიანია და ის არასდროს ბრაზდება." },
+          { eng: "My children are shy but my son is shyer than my daughter.", geo: "ჩემი შვილები მორცხვები არიან მაგრამ ჩემი ვაჟი უფრო მორცხვია ვიდრე ჩემი ქალიშვილი." },
+          { eng: "My sister is funnier than I am.", geo: "ჩემი და უფრო სასაცილოა ვიდრე მე." },
+          { eng: "She is the funniest person in our family.", geo: "ის ყველაზე სასაცილო ადამიანია ჩვენს ოჯახში." },
+          { eng: "They are very friendly people but the husband is friendlier than the wife.", geo: "ქმარი უფრო მეგობრულია ვიდრე ცოლი." },
+          { eng: "My sister is more talkative than I am.", geo: "ჩემი და უფრო ლაპარაკის მოყვარულია ვიდრე მე." },
+          { eng: "My aunt is the most talkative person in our family.", geo: "დეიდაჩემი არის ყველაზე სიტყვაუხვი ადამიანი ჩვენს ოჯახში." },
+          { eng: "Ann is more responsible than Marry in my job.", geo: "ანა უფრო პასუხისმგებლიანია ვიდრე მერი ჩემს სამსახურში." },
+          { eng: "Ann is the most responsible worker in my job.", geo: "ანა არის ყველაზე პასუხისმგებლიანი თანამშრომელი ჩემს სამსახურში." },
+          { eng: "My sister is more creative than I am.", geo: "ჩემი და უფრო კრეატიულია ვიდრე მე." },
+          { eng: "I think it is very important to be polite.", geo: "მე ვფიქრობ ძალიან მნიშვნელოვანია, რომ იყო თავაზიანი." },
+          { eng: "My son is the laziest person I know.", geo: "ჩემი ვაჟი არის ყველაზე ზარმაცი ადამიანი ვისაც ვიცნობ." },
+          { eng: "I am the most organized person in my family.", geo: "მე ვფიქრობ მე ვარ ყველაზე მოწესრიგებული ადამიანი ჩემს ოჯახში." },
+          { eng: "George is the most patient person I know.", geo: "გიორგი არის ყველაზე მომთმენი ადამიანი ვისაც ვიცნობ." },
+          { eng: "I think I am an honest person.", geo: "მე ვფიქრობ მე ვარ გულწრფელი ადამიანი." },
+          { eng: "My new job is better than the previous one.", geo: "ჩემი ახალი სამსახური უკეთესია წინაზე." },
+          { eng: "Batumi is the best seaside resort in Georgia.", geo: "ბათუმი არის საუკეთესო ზღვისპირა კურორტი საქართველოში." },
+          { eng: "Tsikhisdziri is better than Batumi.", geo: "ციხისძირი უკეთესია ვიდრე ბათუმი." },
+          { eng: "This restaurant is worse than the one which is near our house.", geo: "ეს რესტორანი უფრო ცუდია ვიდრე ის, რომელიც ჩვენს სახლთან ახლოსაა." },
+          { eng: "This is the worst restaurant in the city.", geo: "ეს ყველაზე ცუდი რესტორანია ქალაქში." },
+          { eng: "My name is Daji, and I work with Danieli in a lovely seaside cafe.", geo: "ჩემი სახელია დაჯი, და მე ვმუშაობ დანიელისთან ერთად მშვენიერ ზღვისპირა კაფეში." },
+          { eng: "Danieli is a very calm and patient manager.", geo: "დანიელი ძალიან მშვიდი და მომთმენი მენეჯერია." },
+          { eng: "He is never lazy and always stays organized.", geo: "ის არასდროს არის ზარმაცი და ყოველთვის მოწესრიგებულია." },
+          { eng: "I think I am a responsible and polite worker, but sometimes I am a bit shy.", geo: "ვფიქრობ, მე პასუხისმგებლიანი და თავაზიანი თანამშრომელი ვარ, მაგრამ ხანდახან ცოტა მორცხვი ვარ." },
+          { eng: "Yesterday, an angry customer came in, but Danieli stayed calmer than anyone else.", geo: "გუშინ ერთი გაბრაზებული მომხმარებელი შემოვიდა, მაგრამ დანიელი ყველაზე მშვიდად დარჩა." },
+          { eng: "In the end, it was the best day of the week, and we felt like the happiest team!", geo: "საბოლოოდ, ეს იყო კვირის საუკეთესო დღე და ჩვენ თავი ყველაზე ბედნიერ გუნდად ვიგრძენით!" }
+        ],
+        quiz: [
+          {
+            question: "My mom is the _______ person in the world. (kind)",
+            options: ["kind", "kinder", "kindest", "more kind"],
+            correct: "kindest"
+          },
+          {
+            question: "My son is _______ than my daughter. (shy)",
+            options: ["shyer", "shyest", "more shy", "shyst"],
+            correct: "shyer"
+          },
+          {
+            question: "She is the _______ person in our family. (funny)",
+            options: ["funnier", "funniest", "funnyest", "funny"],
+            correct: "funniest"
+          },
+          {
+            question: "Ann is the _______ responsible worker in my job.",
+            options: ["more", "most", "the most", "mostest"],
+            correct: "most"
+          },
+          {
+            question: "My new job is _______ than the previous one. (good)",
+            options: ["gooder", "better", "best", "the best"],
+            correct: "better"
+          },
+          {
+            question: "This is the _______ restaurant in the city. (bad)",
+            options: ["worse", "worst", "badest", "the worst"],
+            correct: "worst"
+          },
+          {
+            question: "Tsikhisdziri is _______ than Batumi. (good)",
+            options: ["gooder", "better", "best", "the best"],
+            correct: "better"
+          },
+          {
+            question: "This restaurant is _______ than the one near our house. (bad)",
+            options: ["worse", "worst", "badder", "the worse"],
+            correct: "worse"
           }
         ]
       },
